@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+
+  
+  
+
+  
+  
+  
+
+  
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.js"></script>
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  
+
+  
+    
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css">
+    
+  
+    
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.js"></script>
+    
+  
+
+  <style type="text/css">
+    .ui.dropdown .remove.icon {
+  font-size: 0.857143em;
+  float:left; 
+  margin:0;
+  padding:0;
+  left:-0.7em;
+  top:0;
+  position:relative;
+  opacity: 0.5;
+}
+
+.ui.dropdown input[value=''] ~ .remove.icon, .ui.dropdown input:not([value]) ~ .remove.icon
+{
+   opacity: 0.0;
+}
+
+body { padding:20px; }
+  </style>
+
+  <title>Remove/clear icon for Semantic UI dropdown</title>
+
+  
+    
+
+
+
+
+<script type='text/javascript'>//<![CDATA[
+$(window).load(function(){
+$(document).ready(function() {
+
+$('.ui.dropdown').dropdown();
+
+$('.ui.dropdown .remove.icon').on('click', function(e){
+	  $(this).parent('.dropdown').dropdown('clear');
+    console.log('clear');
+    e.stopPropagation();
+});	
+
+});
+
+
+});//]]> 
+
+</script>
+
+  
+</head>
+
+<body>
+  <div class="ui selection dropdown">
+  <input name="tags" type="hidden">
+  <i class="dropdown icon"></i>
+    <i class="remove icon"></i>
+  <div class="default text">Select</div>
+  <div class="menu">
+    <div class="item" data-value="angular">Angular</div>
+<div class="item" data-value="css">CSS</div>
+<div class="item" data-value="design">Graphic Design</div>
+<div class="item" data-value="ember">Ember</div>
+<div class="item" data-value="html">HTML</div>
+<div class="item" data-value="ia">Information Architecture</div>
+<div class="item" data-value="javascript">Javascript</div>
+<div class="item" data-value="mech">Mechanical Engineering</div>
+<div class="item" data-value="meteor">Meteor</div>
+<div class="item" data-value="node">NodeJS</div>
+<div class="item" data-value="plumbing">Plumbing</div>
+<div class="item" data-value="python">Python</div>
+<div class="item" data-value="rails">Rails</div>
+<div class="item" data-value="react">React</div>
+<div class="item" data-value="repair">Kitchen Repair</div>
+<div class="item" data-value="ruby">Ruby</div>
+<div class="item" data-value="ui">UI Design</div>
+<div class="item" data-value="ux">User Experience</div>
+  </div>
+</div>
+
+
+  
+</body>
+
+</html>
+
+
