@@ -25,21 +25,97 @@
 
 
 
-  <style type="text/css">
-  body {
-       font-family: Arial;
-  }
+    <style type="text/css">
+        * {
+        padding: 0;
+        margin: 0;
+        vertical-align: top;
+    }
+    body {
+        background-color: #f9f9f9;
+        font: 14px/1.5em"proxima-nova", Helvetica, Arial, sans-serif;
+    }
+    a {
+        color: #069;
+    }
+    a:hover {
+        color: #28b;
+    }
+    h2 {
+        margin-top: 15px;
+        font: normal 32px"omnes-pro", Helvetica, Arial, sans-serif;
+    }
+    h3 {
+        margin-left: 30px;
+        font: normal 26px"omnes-pro", Helvetica, Arial, sans-serif;
+        color: #666;
+    }
+    p {
+        margin-top: 10px;
+    }
+    button {
+        font-size: 18px;
+        padding: 1px 7px;
+    }
+    input {
+        font-size: 18px;
+    }
+    input[type=checkbox] {
+        margin: 7px;
+    }
+    #header {
+        position: relative;
+        width: 900px;
+        margin: auto;
+    }
+    #header h2 {
+        margin-left: 10px;
+        vertical-align: middle;
+        font-size: 42px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #000;
+    }
+    #content {
+        width: 880px;
+        margin: 0 auto;
+        padding: 40px;
+    }
+    #footer {
+        margin-top: 25px;
+        margin-bottom: 10px;
+        text-align: center;
+        font-size: 12px;
+        color: #999;
+    }
+    .demo-container {
+        box-sizing: border-box;
+        width: 750px;
+        height: 450px;
+        padding: 20px 15px 15px 15px;
+        margin: 15px auto 30px auto;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background: #fff;
+        background: linear-gradient(#f6f6f6 0, #fff 0px);
+        background: -o-linear-gradient(#f6f6f6 0, #fff 0px);
+        background: -ms-linear-gradient(#f6f6f6 0, #fff 0px);
+        background: -moz-linear-gradient(#f6f6f6 0, #fff 0px);
+        background: -webkit-linear-gradient(#f6f6f6 0, #fff 0px);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        -o-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        -ms-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        -moz-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+    .demo-placeholder {
+        width: 100%;
+        height: 100%;
+        font-size: 14px;
+        line-height: 1.2em;
+    }
 
-  #placeholder {
-  background: linear-gradient(#f6f6f6 0px, #fff 50px) repeat scroll 0 0 rgba(0, 0, 0, 0);
-  border: 1px solid #ddd;
-  box-shadow: 0 30px 30px rgba(0, 0, 0, 0.15);
-
-}
-
-  </style>
-
-  <title>Flot Example</title>
+      </style>
 
 
 <script type='text/javascript'>//<![CDATA[
@@ -51,8 +127,8 @@ var diff =
 $(function() {
   function generate(start, end, fn) {
     var res = [];
-    for (var i = 0; i <= 1500; ++i) {
-      var x = start + i / 1500 * (end - start);
+    for (var i = 0; i <= 2500; ++i) {
+      var x = start + i / 2500 * (end - start);
       res.push([x, fn(x)]);
     }
     return res;
@@ -61,8 +137,8 @@ $(function() {
 
   function generateb(start, end, fn) {
     var res = [];
-    for (var i = 0; i <= 1500; ++i) {
-      var x = start + i / 1500 * (end - start);
+    for (var i = 0; i <= 2500; ++i) {
+      var x = start + i / 2500 * (end - start);
       res.push([fn(x), x]);
     }
     return res;
@@ -192,13 +268,13 @@ var satV = generateb(273.16, 647.26, function(x) {
       xaxis: {
         position: 'bottom',
         axisLabel: 'Enthalpy kJ/kg',
-        axisLabelPadding: 0
+        axisLabelPadding: 7
       },
       yaxes: [{
         position: 'left',
         labelWidth: 18,
         axisLabel: 'Temperature (K)',
-        axisLabelPadding: 0
+        axisLabelPadding: 10
       }, {
         position: 'right',
         tickColor: 'black',
@@ -221,7 +297,7 @@ labelMargin:0, axisMargin:0, minBorderMargin:0,
 
 
         clickable: true,
-        borderWidth: 20,
+        borderWidth: 0,
         hoverable: true,
         aboveData: true,
         markings: [{
@@ -440,7 +516,7 @@ function showTooltip(x, y, contents) {
                 'background-color': 'white','border-radius': '5px',
             opacity: 0.80
 
-        }).appendTo("body").fadeIn(200);
+        }).appendTo("body").fadeIn(250);
     }
 
     var previousPoint = null;
@@ -484,12 +560,13 @@ function showTooltip(x, y, contents) {
 </head>
 
 <body>
+  <div id="content">
+    <div class="demo-container">
 
-  
-  <div id="placeholder" style="width:900px;height:550px;">
+  <div id="placeholder" class="demo-placeholder"></div>
+
 
 </div>
-
 
 </body>
 
