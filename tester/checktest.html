@@ -150,7 +150,7 @@ body { padding:20px; }
 
 <script type='text/javascript'>//<![CDATA[
 $(window).load(function(){
-var diff =
+//var diff =
 
 
 
@@ -630,6 +630,12 @@ $(document).ready(function() {
 
 
 
+function myFunction() {
+    var x = document.getElementById("myText").value;
+    document.getElementById("demo").innerHTML = x;
+}
+
+
 </script>
 
 
@@ -645,14 +651,18 @@ $(document).ready(function() {
 </div>
 
 
+
+<p>A demonstration of how to access a Text Field</p>
+
+
 <div class="ui search selection dropdown">
   <input name="tags" type="hidden">
   <i class="dropdown icon"></i>
   <div class="default text">Select</div>
   <div class="menu">
-    <div class="item" data-value="angular">Angular</div>
-    <div class="item" data-value="css">CSS</div>
-    <div class="item" data-value="design">Graphic Design</div>
+    <div class="item" data-value="enthalpy">Enthalpy (kJ/kg)</div>
+    <div class="item" data-value="entropy">Entropy (J/g*K)</div>
+    <div class="item" data-value="pressure">Pressure (MPa)</div>
 
   </div>
 
@@ -661,7 +671,19 @@ $(document).ready(function() {
 
 <div class="ui button one">Restore one</div>
 
+<div class="ui small action input">
+  <input type="text" id="myText" value="Some text...">
+  <button class="ui button" onclick="myFunction()">Calculate</button>
+</div>
 
+
+
+
+
+<input type="text" id="myText" value="Some text...">
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
 
 
 </html>
