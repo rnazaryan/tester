@@ -62,7 +62,7 @@
         padding: 1px 7px;
     }
     input {
-        font-size: 18px;
+        font-size: 14px;
     }
     input[type=checkbox] {
         margin: 7px;
@@ -121,20 +121,24 @@
 
 
 
-    .ui.dropdown .remove.icon {
+    .ui.input {
   font-size: 0.857143em;
-  float:left;
-  margin:0;
-  padding:0;
-  left:-0.7em;
-  top:0;
-  position:relative;
-  opacity: 0.5;
 }
 
 .ui.dropdown input[value=''] ~ .remove.icon, .ui.dropdown input:not([value]) ~ .remove.icon
 {
    opacity: 0.0;
+}
+
+.ui.dropdown .remove.icon {
+font-size: 0.857143em;
+float:left;
+margin:0;
+padding:0;
+left:-0.7em;
+top:0;
+position:relative;
+opacity: 0.5;
 }
 
 body { padding:20px; }
@@ -149,6 +153,72 @@ body { padding:20px; }
 
 
 <script type='text/javascript'>//<![CDATA[
+  function fun4(x) {
+
+    var pstar = 1.01325e5;
+    var Tstar = 1;
+    var n = [0, 0.11670521452767e4, -0.72421316703206e6, -0.17073846940092e2, 0.12020824702470e5, -0.32325550322333e7, 0.14915108613530e2, -0.48232657361591e4, 0.40511340542057e6, -0.23855557567849, 0.65017534844798e3];
+
+    //var n =  [0, 0.1167e4, -0.7242e6, 0, 0.1202e5, -0.3232e7, 0, -0.4823e4, 0.4051e6, 0, 0.6501e3];
+
+    //var n = [0, 0.0012e6, -0.7242e6, -0.1707e2, 0.0120e6, -3.2326e6, 0.14915e2, -0.0048e6, 0.4051e6, -0.2385, 0.0007e6];
+
+
+    var theta = (x / Tstar) + n[9] / ((x / Tstar) - n[10]);
+    var A = Math.pow(theta, 2) + (n[1] * theta) + n[2];
+    var B = n[3] * Math.pow(theta, 2) + (n[4] * theta) + n[5];
+    var C = n[6] * Math.pow(theta, 2) + (n[7] * theta) + n[8];
+
+    //a pressure
+    var ps = pstar * Math.pow(((2 * C) / (-B + Math.sqrt(Math.pow(B, 2) - 4 * A * C))), 4);
+    var ps = ps / 100000;
+
+
+    return ps;
+  }
+
+  function region1(x) {
+
+    var T = x;
+
+    var li = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 8, 8, 21, 23, 29, 30, 31, 32];
+    var Ji = [0, -2, -1, 0, 1, 2, 3, 4, 5, -9, -7, -1, 0, 1, 3, -3, 0, 1, 3, 17, -4, 0, 6, -5, -2, 10, -8, -11, -6, -29, -31, -38, -39, -40, -41];
+    var ni = [0, 0.146329712131670, -0.845481871691140, -3.75636036720400, 3.38551691683850, -0.957919633878720, 0.157720385132280, -0.0166164171995010, 0.000812146299835680, 0.000283190801238040, -0.000607063015658740, -0.0189900682184190, -0.0325297487705050, -0.0218417171754140, -5.28383579699300e-05, -0.000471843210732670, -0.000300017807930260, 4.76613939069870e-05, -4.41418453308460e-06, -7.26949962975940e-16, -3.16796448450540e-05, -2.82707979853120e-06, -8.52051281201030e-10, -2.24252819080000e-06, -6.51712228956010e-07, -1.43417299379240e-13, -4.05169968601170e-07, -1.27343017416410e-09, -1.74248712306340e-10, -6.87621312955310e-19, 1.44783078285210e-20, 2.63357816627950e-23, -1.19476226400710e-23, 1.82280945814040e-24, -9.35370872924580e-26];
+
+    //var ni = [0,0.1463, -0.8454, -3.7563, 3.3855, -0.9579, 0.1577, -0.01661, 0.0008, 0.0002, -0.0006, -0.01899, -0.03252, -0.02184, -5.2838e-05, -0.00047, -0.0003, 4.766e-05, -4.414e-06, -7.269e-16, -3.167e-05, -2.827e-06, -8.5205e-10, -2.2425e-06, -6.517e-07, -1.4341e-13, -4.0516e-07, -1.273e-09, -1.7424e-10, -6.876e-19, 1.4478e-20, 2.633e-23, -1.1947e-23, 1.8228e-24, -9.3537e-26];
+
+
+    var P = fun4(T);
+
+    //Reference values
+    var pstar = 16.53; //MPa
+    var Tstar = 1386; //K
+    var R = 0.461526; //KJ/(kg*K)
+    //var R = 0.461; //KJ/(kg*K)
+
+    //Dimensionless parameters
+    var tau = Tstar / T;
+    var pi = P / pstar;
+
+    // Initizalize Reimann Sum
+    var gamma = 0;
+    var gammatau = 0;
+
+    for (i = 1; i < 35; i++) {
+      gamma = gamma + ((ni[i] * Math.pow(7.1 - pi, li[i])) * Math.pow(tau - 1.222, Ji[i]));
+      gammatau = gammatau + ni[i] * Ji[i] * Math.pow(7.1 - pi, li[i]) * Math.pow(tau - 1.222, Ji[i] - 1);
+
+    }
+
+    //var g = gamma * (R * T);
+    var h = R * T * tau * gammatau;
+    var s = R * (tau*gammatau - gamma);
+
+    return s;
+  }
+
+
+
 $(window).load(function(){
 //var diff =
 
@@ -232,13 +302,13 @@ $(function() {
 
 
   var data = [{
-    color: 'blue',
+    color: '#0091ff',
     data: satL,
     label: 'liquid',
     xaxis: 1,
     yaxis: 1
   }, {
-    color: 'blue',
+    color: '#0091ff',
     data: satV,
     xaxis: 1,
     yaxis: 2
@@ -248,47 +318,47 @@ $(function() {
       //xaxis: 1,
       //yaxis: 2
     }, {
-    color: 'blue',
+    color: '#0091ff',
     data: qualityfn(1),
     xaxis: 1,
     yaxis: 2
   },  {
-    color: 'blue',
+    color: '#0091ff',
     data: qualityfn(2),
     xaxis: 1,
     yaxis: 2
   },  {
-    color: 'blue',
+    color: '#0091ff',
     data: qualityfn(3),
     xaxis: 1,
     yaxis: 2
   },  {
-    color: 'blue',
+    color: '#0091ff',
     data: qualityfn(4),
     xaxis: 1,
     yaxis: 2
   },  {
-    color: 'blue',
+    color: '#0091ff',
     data: qualityfn(5),
     xaxis: 1,
     yaxis: 2
   },  {
-    color: 'blue',
+    color: '#0091ff',
     data: qualityfn(6),
     xaxis: 1,
     yaxis: 2
   },  {
-    color: 'blue',
+    color: '#0091ff',
     data: qualityfn(7),
     xaxis: 1,
     yaxis: 2
   },  {
-    color: 'blue',
+    color: '#0091ff',
     data: qualityfn(8),
     xaxis: 1,
     yaxis: 2
   },  {
-    color: 'blue',
+    color: '#0091ff',
     data: qualityfn(9),
     xaxis: 1,
     yaxis: 2
@@ -378,73 +448,13 @@ labelMargin:0, axisMargin:0, minBorderMargin:0,
 });
 
 
-function fun4(x) {
-
-  var pstar = 1.01325e5;
-  var Tstar = 1;
-  var n = [0, 0.11670521452767e4, -0.72421316703206e6, -0.17073846940092e2, 0.12020824702470e5, -0.32325550322333e7, 0.14915108613530e2, -0.48232657361591e4, 0.40511340542057e6, -0.23855557567849, 0.65017534844798e3];
-
-  //var n =  [0, 0.1167e4, -0.7242e6, 0, 0.1202e5, -0.3232e7, 0, -0.4823e4, 0.4051e6, 0, 0.6501e3];
-
-  //var n = [0, 0.0012e6, -0.7242e6, -0.1707e2, 0.0120e6, -3.2326e6, 0.14915e2, -0.0048e6, 0.4051e6, -0.2385, 0.0007e6];
-
-
-  var theta = (x / Tstar) + n[9] / ((x / Tstar) - n[10]);
-  var A = Math.pow(theta, 2) + (n[1] * theta) + n[2];
-  var B = n[3] * Math.pow(theta, 2) + (n[4] * theta) + n[5];
-  var C = n[6] * Math.pow(theta, 2) + (n[7] * theta) + n[8];
-
-  //a pressure
-  var ps = pstar * Math.pow(((2 * C) / (-B + Math.sqrt(Math.pow(B, 2) - 4 * A * C))), 4);
-  var ps = ps / 100000;
-
-
-  return ps;
-}
 
 
 
 
 
-function region1(x) {
-
-  var T = x;
-
-  var li = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 8, 8, 21, 23, 29, 30, 31, 32];
-  var Ji = [0, -2, -1, 0, 1, 2, 3, 4, 5, -9, -7, -1, 0, 1, 3, -3, 0, 1, 3, 17, -4, 0, 6, -5, -2, 10, -8, -11, -6, -29, -31, -38, -39, -40, -41];
-  var ni = [0, 0.146329712131670, -0.845481871691140, -3.75636036720400, 3.38551691683850, -0.957919633878720, 0.157720385132280, -0.0166164171995010, 0.000812146299835680, 0.000283190801238040, -0.000607063015658740, -0.0189900682184190, -0.0325297487705050, -0.0218417171754140, -5.28383579699300e-05, -0.000471843210732670, -0.000300017807930260, 4.76613939069870e-05, -4.41418453308460e-06, -7.26949962975940e-16, -3.16796448450540e-05, -2.82707979853120e-06, -8.52051281201030e-10, -2.24252819080000e-06, -6.51712228956010e-07, -1.43417299379240e-13, -4.05169968601170e-07, -1.27343017416410e-09, -1.74248712306340e-10, -6.87621312955310e-19, 1.44783078285210e-20, 2.63357816627950e-23, -1.19476226400710e-23, 1.82280945814040e-24, -9.35370872924580e-26];
-
-  //var ni = [0,0.1463, -0.8454, -3.7563, 3.3855, -0.9579, 0.1577, -0.01661, 0.0008, 0.0002, -0.0006, -0.01899, -0.03252, -0.02184, -5.2838e-05, -0.00047, -0.0003, 4.766e-05, -4.414e-06, -7.269e-16, -3.167e-05, -2.827e-06, -8.5205e-10, -2.2425e-06, -6.517e-07, -1.4341e-13, -4.0516e-07, -1.273e-09, -1.7424e-10, -6.876e-19, 1.4478e-20, 2.633e-23, -1.1947e-23, 1.8228e-24, -9.3537e-26];
 
 
-  var P = fun4(T);
-
-  //Reference values
-  var pstar = 16.53; //MPa
-  var Tstar = 1386; //K
-  var R = 0.461526; //KJ/(kg*K)
-  //var R = 0.461; //KJ/(kg*K)
-
-  //Dimensionless parameters
-  var tau = Tstar / T;
-  var pi = P / pstar;
-
-  // Initizalize Reimann Sum
-  var gamma = 0;
-  var gammatau = 0;
-
-  for (i = 1; i < 35; i++) {
-    gamma = gamma + ((ni[i] * Math.pow(7.1 - pi, li[i])) * Math.pow(tau - 1.222, Ji[i]));
-    gammatau = gammatau + ni[i] * Ji[i] * Math.pow(7.1 - pi, li[i]) * Math.pow(tau - 1.222, Ji[i] - 1);
-
-  }
-
-  //var g = gamma * (R * T);
-  var h = R * T * tau * gammatau;
-  var s = R * (tau*gammatau - gamma);
-
-  return s;
-}
 
 
 
@@ -617,6 +627,9 @@ $(document).ready(function() {
 
   $('.button.one').on('click', function() {
       $('.ui.dropdown').dropdown('restore defaults');
+
+
+
   });
 
 
@@ -626,13 +639,36 @@ $(document).ready(function() {
   });
 
 */
+
+
+
+
+
+
+
 });
 
 
+function handleKeyPress(e){
+ var key=e.keyCode || e.which;
+  if (key==13){
+     myFunction();
+  }
+}
 
 function myFunction() {
     var x = document.getElementById("myText").value;
-    document.getElementById("demo").innerHTML = x;
+
+
+    var output = region1(x);
+
+
+
+
+
+    //document.getElementById("demo").innerHTML = x;
+    document.getElementById("demo").innerHTML = output;
+
 }
 
 
@@ -671,17 +707,12 @@ function myFunction() {
 
 <div class="ui button one">Restore one</div>
 
-<div class="ui small action input">
-  <input type="text" id="myText" value="Some text...">
+<div class="ui small icon input">
+  <input type="text" id="myText" value="Input" onkeypress="handleKeyPress(event)">
   <button class="ui button" onclick="myFunction()">Calculate</button>
 </div>
 
 
-
-
-
-<input type="text" id="myText" value="Some text...">
-<button onclick="myFunction()">Try it</button>
 
 <p id="demo"></p>
 
