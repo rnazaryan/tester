@@ -9,8 +9,6 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
 
-
-
     <link rel="stylesheet" type="text/css" href="/css/normalize.css">
 
 
@@ -26,7 +24,6 @@
 
     <script type="text/javascript" src="http://people.iola.dk/olau/flot/jquery.flot.js"></script>
     <script type="text/javascript" src="https://raw.github.com/markrcote/flot-axislabels/master/jquery.flot.axislabels.js"></script>
-
 
 
     <style type="text/css">
@@ -144,12 +141,7 @@ opacity: 0.5;
 body { padding:20px; }
 
 
-
-
-
-
-
-      </style>
+</style>
 
 
 <script type='text/javascript'>//<![CDATA[
@@ -159,11 +151,6 @@ body { padding:20px; }
     var Tstar = 1;
     var n = [0, 0.11670521452767e4, -0.72421316703206e6, -0.17073846940092e2, 0.12020824702470e5, -0.32325550322333e7, 0.14915108613530e2, -0.48232657361591e4, 0.40511340542057e6, -0.23855557567849, 0.65017534844798e3];
 
-    //var n =  [0, 0.1167e4, -0.7242e6, 0, 0.1202e5, -0.3232e7, 0, -0.4823e4, 0.4051e6, 0, 0.6501e3];
-
-    //var n = [0, 0.0012e6, -0.7242e6, -0.1707e2, 0.0120e6, -3.2326e6, 0.14915e2, -0.0048e6, 0.4051e6, -0.2385, 0.0007e6];
-
-
     var theta = (x / Tstar) + n[9] / ((x / Tstar) - n[10]);
     var A = Math.pow(theta, 2) + (n[1] * theta) + n[2];
     var B = n[3] * Math.pow(theta, 2) + (n[4] * theta) + n[5];
@@ -172,7 +159,6 @@ body { padding:20px; }
     //a pressure
     var ps = pstar * Math.pow(((2 * C) / (-B + Math.sqrt(Math.pow(B, 2) - 4 * A * C))), 4);
     var ps = ps / 100000;
-
 
     return ps;
   }
@@ -184,8 +170,6 @@ body { padding:20px; }
     var li = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 8, 8, 21, 23, 29, 30, 31, 32];
     var Ji = [0, -2, -1, 0, 1, 2, 3, 4, 5, -9, -7, -1, 0, 1, 3, -3, 0, 1, 3, 17, -4, 0, 6, -5, -2, 10, -8, -11, -6, -29, -31, -38, -39, -40, -41];
     var ni = [0, 0.146329712131670, -0.845481871691140, -3.75636036720400, 3.38551691683850, -0.957919633878720, 0.157720385132280, -0.0166164171995010, 0.000812146299835680, 0.000283190801238040, -0.000607063015658740, -0.0189900682184190, -0.0325297487705050, -0.0218417171754140, -5.28383579699300e-05, -0.000471843210732670, -0.000300017807930260, 4.76613939069870e-05, -4.41418453308460e-06, -7.26949962975940e-16, -3.16796448450540e-05, -2.82707979853120e-06, -8.52051281201030e-10, -2.24252819080000e-06, -6.51712228956010e-07, -1.43417299379240e-13, -4.05169968601170e-07, -1.27343017416410e-09, -1.74248712306340e-10, -6.87621312955310e-19, 1.44783078285210e-20, 2.63357816627950e-23, -1.19476226400710e-23, 1.82280945814040e-24, -9.35370872924580e-26];
-
-    //var ni = [0,0.1463, -0.8454, -3.7563, 3.3855, -0.9579, 0.1577, -0.01661, 0.0008, 0.0002, -0.0006, -0.01899, -0.03252, -0.02184, -5.2838e-05, -0.00047, -0.0003, 4.766e-05, -4.414e-06, -7.269e-16, -3.167e-05, -2.827e-06, -8.5205e-10, -2.2425e-06, -6.517e-07, -1.4341e-13, -4.0516e-07, -1.273e-09, -1.7424e-10, -6.876e-19, 1.4478e-20, 2.633e-23, -1.1947e-23, 1.8228e-24, -9.3537e-26];
 
 
     var P = fun4(T);
@@ -219,7 +203,22 @@ body { padding:20px; }
 
 
 
-$(window).load(function(){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//$(window).load(function(){
 //var diff =
 
 
@@ -454,37 +453,6 @@ labelMargin:0, axisMargin:0, minBorderMargin:0,
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function region2(x) {
 
   var T = x;
@@ -557,11 +525,6 @@ function region2(x) {
 
 
 
-
-
-
-
-
 function criticalregion(x) {
   var crit = 647.26;
 
@@ -584,6 +547,8 @@ function showTooltip(x, y, contents) {
     }
 
     var previousPoint = null;
+
+
     $("#placeholder").bind("plothover", function (event, pos, item) {
         $("#x").text(pos.x.toFixed(2));
         $("#y").text(pos.y.toFixed(2));
@@ -614,23 +579,53 @@ function showTooltip(x, y, contents) {
     });
 
 
-
-
-});//]]>
-
-
 $(document).ready(function() {
 
-  $('.ui.dropdown').dropdown();
+      $('.ui.dropdown').dropdown();
 
 
 
-  $('.button.one').on('click', function() {
-      $('.ui.dropdown').dropdown('restore defaults');
+      $('.button.one').on('click', function() {
+          $('.ui.dropdown').dropdown('restore defaults');
 
 
 
-  });
+      });
+
+
+
+      $(document).ready(function(){
+      		$('#fundropdown').change(function(){
+      			$selected_value=$('#fundropdown class:selected').text();
+      			$('#result').text($selected_value);
+      		});
+      	});
+
+
+
+        function handleKeyPress(e){
+         var key=e.keyCode || e.which;
+          if (key==13){
+             myFunction();
+          }
+        }
+
+
+
+
+
+
+
+//});//]]>
+
+
+
+
+
+
+
+
+
 
 
 /*
@@ -649,31 +644,34 @@ $(document).ready(function() {
 });
 
 
-function handleKeyPress(e){
- var key=e.keyCode || e.which;
-  if (key==13){
-     myFunction();
-  }
-}
-
 function myFunction() {
     var x = document.getElementById("myText").value;
 
 
-    var output = region1(x);
-
-
-
+    var output = [fun4(x),region1(x)];
 
 
     //document.getElementById("demo").innerHTML = x;
     document.getElementById("demo").innerHTML = output;
 
+
+        var someData = plot.getData();
+        var randPoint = Math.floor(Math.random() * 10);
+        var randY = Math.random() * 10;
+        someData[0].data.push([5,300]);
+
+        console.log(someData[0].data);
+
+        plot.setData(someData);
+        plot.setupGrid();
+        plot.draw();
+            //});
+
 }
 
 
-</script>
 
+</script>
 
 </head>
 
@@ -687,12 +685,11 @@ function myFunction() {
 </div>
 
 
-
 <p>A demonstration of how to access a Text Field</p>
 
 
 <div class="ui search selection dropdown">
-  <input name="tags" type="hidden">
+  <input name="tags" type="hidden" id ="fundropdown">
   <i class="dropdown icon"></i>
   <div class="default text">Select</div>
   <div class="menu">
@@ -712,7 +709,7 @@ function myFunction() {
   <button class="ui button" onclick="myFunction()">Calculate</button>
 </div>
 
-
+<div id="result"></div>
 
 <p id="demo"></p>
 
