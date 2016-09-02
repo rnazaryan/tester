@@ -24,6 +24,7 @@
 
     <script type="text/javascript" src="http://people.iola.dk/olau/flot/jquery.flot.js"></script>
     <script type="text/javascript" src="https://raw.github.com/markrcote/flot-axislabels/master/jquery.flot.axislabels.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/krzysu/flot.tooltip/master/js/jquery.flot.tooltip.js"></script>
 
 
     <style type="text/css">
@@ -414,6 +415,8 @@ labelMargin:0, axisMargin:0, minBorderMargin:0,
         }, ]
       },
 
+      tooltip: true,
+
       zoom: {
         interactive: true
       },
@@ -521,62 +524,11 @@ function region2(x) {
 }
 
 
-
-
-
-
 function criticalregion(x) {
   var crit = 647.26;
 
   return crit
 }
-
-//tooltip
-function showTooltip(x, y, contents) {
-        $('<div id="tooltip">' + contents + '</div>').css({
-            position: 'absolute',
-            display: 'none',
-            top: y + 5,
-            left: x + 5,
-            border: '1px solid black',
-            padding: '2px',
-                'background-color': 'white','border-radius': '5px',
-            opacity: 0.80
-
-        }).appendTo("body").fadeIn(250);
-    }
-
-    var previousPoint = null;
-
-
-    $("#placeholder").bind("plothover", function (event, pos, item) {
-        $("#x").text(pos.x.toFixed(2));
-        $("#y").text(pos.y.toFixed(2));
-
-
-        if (item) {
-            if (previousPoint != item.dataIndex) {
-                previousPoint = item.dataIndex;
-
-                //debugger;
-                $("#tooltip").remove();
-                var x = item.datapoint[0].toFixed(5),
-                    y = item.datapoint[1].toFixed(5);
-
-                var label = item.series.label;
-//                if (label == null){// GET Threhold originSeries for bellow values
-//                    label = item.series.originSeries.label;
-//                }
-
-                showTooltip(item.pageX, item.pageY,
-                label + ": " + x + " kJ/kg, " + y + " K");
-            }
-        } else {
-            $("#tooltip").remove();
-            previousPoint = null;
-        }
-
-    });
 
 
 $(document).ready(function() {
@@ -651,7 +603,6 @@ function myFunction() {
     var output = [fun4(x),region1(x)];
 
 
-    //document.getElementById("demo").innerHTML = x;
     document.getElementById("demo").innerHTML = output;
 
 
@@ -665,7 +616,7 @@ function myFunction() {
         plot.setData(someData);
         plot.setupGrid();
         plot.draw();
-            //});
+
 
 }
 
@@ -684,9 +635,7 @@ function myFunction() {
 
 </div>
 
-
 <p>A demonstration of how to access a Text Field</p>
-
 
 <div class="ui search selection dropdown">
   <input name="tags" type="hidden" id ="fundropdown">
@@ -712,6 +661,5 @@ function myFunction() {
 <div id="result"></div>
 
 <p id="demo"></p>
-
 
 </html>
