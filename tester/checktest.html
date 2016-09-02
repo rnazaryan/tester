@@ -363,6 +363,12 @@ $(function() {
     xaxis: 1,
     yaxis: 2
   }];
+
+
+
+
+
+
   var plot = $.plot($("#placeholder"),
     data, {
       xaxis: {
@@ -447,6 +453,16 @@ labelMargin:0, axisMargin:0, minBorderMargin:0,
 
 
     });
+
+
+
+
+
+
+
+
+
+
 });
 
 
@@ -655,7 +671,7 @@ function myFunction() {
 
 <div class="ui small icon input">
   <input type="text" id="myText" value="Input" onkeypress="handleKeyPress(event)">
-  <button class="ui button" onclick="myFunction()">Calculate</button>
+  <button class="ui button" id ="myFunction" onclick="myFunction()">Calculate</button>
 </div>
 
 <div id="result"></div>
