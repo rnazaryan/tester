@@ -458,6 +458,46 @@ labelMargin:0, axisMargin:0, minBorderMargin:0,
 
 
 
+    $('#myFunction').click(function(){
+
+
+
+
+
+      var x = document.getElementById("myText").value;
+
+
+      var output = [fun4(x),region1(x)];
+
+
+      document.getElementById("demo").innerHTML = output;
+
+
+          var someData = plot.getData();
+
+          someData[0].data.push([4,400]);
+          //someData[0].data.[someData.length].color = 'red';
+
+          console.log(output);
+
+          plot.setData(someData);
+          plot.setupGrid();
+          plot.draw();
+
+
+
+
+
+
+    });
+
+
+
+
+
+
+
+
 
 
 
@@ -623,8 +663,7 @@ function myFunction() {
 
 
         var someData = plot.getData();
-        var randPoint = Math.floor(Math.random() * 10);
-        var randY = Math.random() * 10;
+
         someData[0].data.push([5,300]);
 
         console.log(someData[0].data);
@@ -648,7 +687,6 @@ function myFunction() {
 
   <div id="placeholder" class="demo-placeholder"></div>
 
-
 </div>
 
 <p>A demonstration of how to access a Text Field</p>
@@ -664,14 +702,13 @@ function myFunction() {
 
   </div>
 
-
 </div>
 
 <div class="ui button one">Restore one</div>
 
 <div class="ui small icon input">
-  <input type="text" id="myText" value="Input" onkeypress="handleKeyPress(event)">
-  <button class="ui button" id ="myFunction" onclick="myFunction()">Calculate</button>
+  <input type="text" id="myText" value="Input">
+  <button class="ui button" id ="myFunction">Calculate</button>
 </div>
 
 <div id="result"></div>
